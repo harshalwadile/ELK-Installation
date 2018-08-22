@@ -5,7 +5,7 @@
     tasks:
     - name: copy elk installation script on deployment server
       copy:
-         src: /var/lib/jenkins/elk_installation/elk.sh
+         src: /var/lib/jenkins/workspace/elk_installation/elk.sh
          dest: /home/ec2-user/
     - name: Executing elk.sh script on deployment server
       shell: sh /home/ec2-user/elk.sh
