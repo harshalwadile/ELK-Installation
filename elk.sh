@@ -1,5 +1,4 @@
 #/bin/bash
-
 java -version > /dev/null 2>&1
 if [ `echo $?` -ne 0 ]
 then
@@ -15,8 +14,8 @@ enabled=1
 ''' | sudo tee /etc/yum.repos.d/elasticsearch.repo
 sudo yum -y install elasticsearch
 sudo sed -i 's/# network.host: 192.168.0.1/network.host: localhost/g' /etc/elasticsearch/elasticsearch.yml
-sudo systemctl start elasticsearch
-sudo systemctl status elasticsearch
+sudo service elasticsearch start
+sudo service elasticsearch status
 echo "Installing Kibana"
 echo ''' [kibana-4.4]
 name=Kibana repository for 4.4.x packages
@@ -27,8 +26,8 @@ enabled=1
 ''' | sudo tee /etc/yum.repos.d/kibana.repo
 sudo yum -y install kibana
 sudo sed -i 's/# server.host: "0.0.0.0"/server.host: "0.0.0.0"/g' /opt/kibana/config/kibana.yml
-sudo systemctl start kibana
-sudo systemctl status kibana
+sudo service kibana start
+sudo service kibana status
 echo "Installing Logstash"
 echo '''[logstash-2.2]
 name=logstash repository for 2.2 packages
@@ -68,8 +67,8 @@ echo '''output {
   }
 }
 ''' | sudo tee /etc/logstash/conf.d/30-elasticsearch-output.conf
-sudo systemctl restart logstash
-sudo systemctl status logstash
+sudo service logstash start
+sudo service logstash status
 sudo rpm --import http://packages.elastic.co/GPG-KEY-elasticsearch
 echo '''[beats]
 name=Elastic Beats Repository
@@ -84,7 +83,5 @@ sudo sed -i 's/\/var\/log\/\*.log/var\/log\/messages/g' /etc/filebeat/filebeat.y
 sudo sed -i 's/#logstash:/logstash:/g' /etc/filebeat/filebeat.yml
 sudo sed -i 's/#hosts: \[\"localhost:5044\"\]/hosts: \[\"localhost:5044\"\]/g' /etc/filebeat/filebeat.yml
 sudo sed -i 's/#bulk_max_size: 2048/bulk_max_size: 1024/g' /etc/filebeat/filebeat.yml
-sudo systemctl restart filebeat
-sudo systemctl status filebeat
-~                                                                                                                                                                                                                                                                                                                                 
-~                                  
+sudo service filebeat start
+sudo service filebeat status
