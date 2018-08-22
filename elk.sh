@@ -1,4 +1,5 @@
 #/bin/bash
+sudo yum update
 java -version > /dev/null 2>&1
 if [ `echo $?` -ne 0 ]
 then
