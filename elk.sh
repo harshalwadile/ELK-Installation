@@ -4,6 +4,7 @@ java -version > /dev/null 2>&1
 if [ `echo $?` -ne 0 ]
 then
         sudo yum install java -y
+        sleep 20
 fi
 echo "Installing Elasticsearch"
 echo '''[elasticsearch-2.x]
@@ -14,6 +15,7 @@ gpgkey=http://packages.elastic.co/GPG-KEY-elasticsearch
 enabled=1
 ''' | sudo tee /etc/yum.repos.d/elasticsearch.repo
 sudo yum -y install elasticsearch
+sleep 10
 sudo sed -i 's/# network.host: 192.168.0.1/network.host: localhost/g' /etc/elasticsearch/elasticsearch.yml
 sudo service elasticsearch start
 sudo service elasticsearch status
@@ -26,6 +28,7 @@ gpgkey=http://packages.elastic.co/GPG-KEY-elasticsearch
 enabled=1
 ''' | sudo tee /etc/yum.repos.d/kibana.repo
 sudo yum -y install kibana
+sleep 10
 sudo sed -i 's/# server.host: "0.0.0.0"/server.host: "0.0.0.0"/g' /opt/kibana/config/kibana.yml
 sudo service kibana start
 sudo service kibana status
@@ -38,6 +41,7 @@ gpgkey=http://packages.elasticsearch.org/GPG-KEY-elasticsearch
 enabled=1
 ''' | sudo tee /etc/yum.repos.d/logstash.repo
 sudo yum -y install logstash
+sleep 10
 echo '''input {
   beats {
     port => 5044
@@ -79,6 +83,7 @@ gpgkey=https://packages.elastic.co/GPG-KEY-elasticsearch
 gpgcheck=1
 ''' | sudo tee /etc/yum.repos.d/elastic-beats.repo
 sudo yum -y install filebeat
+sleep 10
 sudo sed -i 's/#document_type: log/document_type: syslog/g' /etc/filebeat/filebeat.yml
 sudo sed -i 's/\/var\/log\/\*.log/var\/log\/messages/g' /etc/filebeat/filebeat.yml
 sudo sed -i 's/#logstash:/logstash:/g' /etc/filebeat/filebeat.yml
