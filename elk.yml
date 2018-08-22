@@ -8,6 +8,6 @@
          src: /var/lib/jenkins/workspace/elk_installation/elk.sh
          dest: /home/ec2-user/
     - name: Executing elk.sh script on deployment server
-      shell: sh /home/ec2-user/elk.sh
+      shell: sudo sh /home/ec2-user/elk.sh
 
     
