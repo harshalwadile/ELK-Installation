@@ -9,5 +9,5 @@
          dest: /home/ec2-user/
     - name: Executing elk.sh script on deployment server
       shell: sudo sh /home/ec2-user/elk.sh
-
-    
+    - name: "sudo to configued user --ec2-user"
+      command: /usr/bin/whoami
