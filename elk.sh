@@ -91,3 +91,12 @@ sudo sed -i 's/#hosts: \[\"localhost:5044\"\]/hosts: \[\"localhost:5044\"\]/g' /
 sudo sed -i 's/#bulk_max_size: 2048/bulk_max_size: 1024/g' /etc/filebeat/filebeat.yml
 sudo service filebeat start
 sudo service filebeat status
+sleep 5
+echo "Starting elasticsearch"
+sudo service elasticsearch restart
+echo "Starting logstash"
+sudo service logstash restart
+echo "Starting kibana"
+sudo service kibana restart
+echo "Starting filebeat"
+sudo service filebeat restart
